@@ -1,0 +1,46 @@
+<main class="auth-showcase">
+  <div class="container">
+
+    <!-- Registration Form -->
+    <div class="auth-box">
+      <h1>Ready to <span class="highlight-text">register?</span></h1>
+      <p>
+        Already Registered?
+        <%= render "devise/shared/links" %>
+      </p>
+
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+        <%= f.text_field :first_name, placeholder: "Enter First Name" %>
+
+        <%= f.text_field :last_name, placeholder: "Enter Last Name" %>
+
+        <%= f.email_field :email, placeholder: "Enter Email Address" %>
+
+        <%= f.password_field :password, placeholder: "Enter Password" %>
+        
+        <%= f.password_field :password_confirmation, placeholder: "Confirm Password" %>
+
+        <%= f.date_field :joining_date, placeholder: "Joining Date" %>
+
+        <%= f.text_field :phone_number, placeholder: "Enter Phone Number" %>
+
+        <%= f.text_field :address, placeholder: "Enter Address" %>
+
+        <%= f.text_field :pincode, placeholder: "Enter Pincode" %>
+
+        <%= f.text_field :latest_degree, placeholder: "Enter Latest Degree" %>
+        
+        <%= f.select :role, options_for_select([['Admin', 'admin'], ['Trainer', 'trainer'], ['Trainee', 'trainee']]), {}, class: "role-dropdown" %>
+
+
+        <!-- Submit Button -->
+        <div class="btn-container">
+          <%= f.submit "Register", class: "btn reg-btn" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</main>

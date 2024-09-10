@@ -1,0 +1,32 @@
+<div class="trainees-container">
+  <h1>Manage Trainees for All Courses</h1>
+
+<% if @courses.any? %>
+  <% @courses.each do |course| %>
+    <h2><%= course.name %></h2>
+    <% if course.trainees.any? %>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% course.trainees.each do |trainee| %>
+            <tr>
+              <td><%= trainee.first_name %> <%= trainee.last_name %></td>
+              <td><%= trainee.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>No trainees enrolled in this course yet.</p>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>No courses found.</p>
+<% end %>
+
+</div>

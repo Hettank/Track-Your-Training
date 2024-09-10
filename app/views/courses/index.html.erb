@@ -1,0 +1,36 @@
+<div class="courses-container">
+  <h2 class="section-title">Explore Our Courses</h2>
+
+  <div class="courses">
+    <% if @courses.any? %>
+      <% @courses.each do |course| %>
+        <div class="course-card">
+          <div class="course-card-header" style="background-image: url('<%= url_for(course.image) if course.image.attached? %>');">
+            <h3 class="course-name"><%= course.name %></h3>
+            <span class="course-duration"><%= course.duration %> Hours</span> 
+          </div>
+          <div class="course-card-body">
+            <p class="course-author">
+              <i class="ph-bold ph-user"></i>Instructor: <strong><%= course.user.first_name %> <%= course.user.last_name %></strong>
+            </p>
+            <p class="course-description">
+              <%= course.description %>
+            </p>
+          </div>
+          <div class="course-card-footer">
+            <% if current_user.trainee? && !current_user.enrolled_courses.include?(course) %>
+              <%= button_to 'Enroll Now', enroll_course_path(course), method: :post, class: 'btn btn-enroll' %>
+            <% elsif current_user.enrolled_courses.include?(course) %>
+              <button class="btn btn-enrolled" disabled>Already Enrolled</button>
+            <% else %>
+              <button class="btn btn-enroll" disabled>Only Trainees Can Enroll</button>
+            <% end %>
+            <%= link_to "Details", course_path(course), class: 'btn btn-details' %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <h2>No courses available.</h2>
+    <% end %>
+  </div>
+</div>

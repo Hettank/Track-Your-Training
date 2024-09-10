@@ -1,0 +1,39 @@
+<section class="course-details">
+  <div class="course-header">
+    <div class="course-image">
+        <%= image_tag @course.image, alt: @course.name, class: "course-img" %>
+    </div>
+
+    <div class="course-info">
+        <h1 class="course-title"><%= @course.name %></h1>
+        <p class="course-category">Category: <%= @course.category %></p>
+        <div class="course-meta">
+            <div>
+                Difficulty&nbsp;&nbsp;<span class="course-level highlight-text"><%= @course.level %></span>
+            </div>
+            <div>
+                Duration&nbsp;&nbsp;<span class="course-duration-single highlight-text"><%= @course.duration %> Hours</span>
+            </div>
+        </div>
+        <div class="course-dates">
+            <p><strong>Start Date:</strong> <%= @course.start_date.strftime('%B %d, %Y') %></p>
+            <p><strong>End Date:</strong> <%= @course.end_date.strftime('%B %d, %Y') %></p>
+        </div>
+    </div>
+  </div>
+
+  <div class="course-body">
+    <div class="description">
+        <h2>Description</h2>
+        <p class="course-description"><%= @course.description %></p>
+    </div>
+    <div class="prerequisite">
+        <h2>Prerequisites</h2>
+        <p class="course-prerequisites"><%= @course.prerequisites %></p>
+    </div>
+  </div>
+
+  <div class="course-footer">
+    <a href="#" class="btn btn-primary">Enroll Now</a>
+  </div>
+</section>

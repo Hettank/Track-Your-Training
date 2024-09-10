@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TrackYourTraining</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <script src="https://unpkg.com/phosphor-icons"></script>
+  </head>
+
+  <body>
+    <div>
+      <% if show_navbar? %>
+        <%= render "devise/shared/navbar", course: @course %>
+      <% end %>
+      
+      
+      <% if notice %>
+        <div class="alert alert-success">
+          <%= notice %>
+        </div>
+      <% end %>
+      
+      <% if alert %>
+        <div class="alert alert-danger">
+          <%= alert %>
+        </div>
+      <% end %>
+      
+      <%= yield %>
+
+      <% if show_footer? %>
+        <%= render "devise/shared/footer" %>
+      <% end %>
+    </div>
+  </body>
+</html>

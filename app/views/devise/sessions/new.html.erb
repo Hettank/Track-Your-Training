@@ -1,0 +1,24 @@
+<main class="auth-showcase">
+  <div class="container">
+    <div class="auth-box">
+      <h1>Ready to <span class="highlight-text">Login?</span></h1>
+      <p>
+        Already Logged in?
+        <%= render "devise/shared/links" %>
+      </p>
+
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <%# <div class="login-form"> %>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "off", placeholder: "Enter Email" %>
+          <%= f.password_field :password, autocomplete: "off", placeholder: "Enter Password" %>
+
+          <div class="btn-container">
+            <%= f.submit "Login", class: "btn log-btn" %>
+          </div>
+        <% end %>
+      <%# </div> %>
+    </div>
+  </div>
+</main>
