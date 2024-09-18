@@ -1,0 +1,36 @@
+<div class="trainees-container">
+  <h1>Manage Trainers for All Courses</h1>
+
+    <% if @trainers.any? %>
+        <table class="content-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Created Courses</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @trainers.each do |trainer| %>
+                    <tr>
+                        <td><%= trainer.first_name %></td>
+                        <td><%= trainer.email %></td>
+                        <td>
+                            <% if trainer.created_courses.any? %>
+                                <%= trainer.created_courses.map(&:name).join(', ') %>
+                            <% else %>
+                                -
+                            <% end %>
+                        </td>
+                        <td>
+                            <%= link_to 'Remove Trainer', destroy_trainer_path(trainer.id), data: { turbo_method: "Are you sure you want to remove this trainer", turbo_method: :delete }, class: "btn btn-remove" %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+            </table>
+    <% else %>
+        <p>No trainers available.</p>
+    <% end %>
+</div>

@@ -1,31 +1,53 @@
 <div class="courses-container">
   <h2 class="section-title">Explore Our Courses</h2>
-
   <div class="courses">
     <% if @courses.any? %>
       <% @courses.each do |course| %>
         <div class="course-card">
           <div class="course-card-header" style="background-image: url('<%= url_for(course.image) if course.image.attached? %>');">
             <h3 class="course-name"><%= course.name %></h3>
-            <span class="course-duration"><%= course.duration %> Hours</span> 
+            <% if current_user.present? && current_user.trainer? && current_user == course.user %>
+              <%= button_to destroy_course_path(course), method: :delete, data: { turbo_confirm: "Are you sure you want to delete this course?" }, class: "trash-delete" do %>
+                <i class="ph ph-trash"></i>
+              <% end %>
+            <% end %>
+            <span class="course-duration"><%= course.duration %> Hours</span>
           </div>
           <div class="course-card-body">
             <p class="course-author">
               <i class="ph-bold ph-user"></i>Instructor: <strong><%= course.user.first_name %> <%= course.user.last_name %></strong>
             </p>
             <p class="course-description">
-              <%= course.description %>
+              <% if course.description.length > 50 %>
+                Description: <%= course.description[0..49] %>...
+              <% else %>
+                Description: <%= course.description %>
+              <% end %>
+            </p>
+            <p>
+              <% if course.course_content.length > 50 %>
+                Content: <%= course.course_content[0..49] %>...
+              <% else %>
+                Content: <%= course.course_content %>
+              <% end %>
             </p>
           </div>
           <div class="course-card-footer">
-            <% if current_user.trainee? && !current_user.enrolled_courses.include?(course) %>
-              <%= button_to 'Enroll Now', enroll_course_path(course), method: :post, class: 'btn btn-enroll' %>
-            <% elsif current_user.enrolled_courses.include?(course) %>
-              <button class="btn btn-enrolled" disabled>Already Enrolled</button>
-            <% else %>
-              <button class="btn btn-enroll" disabled>Only Trainees Can Enroll</button>
-            <% end %>
+            <!-- Show the details link for everyone -->
             <%= link_to "Details", course_path(course), class: 'btn btn-details' %>
+
+            <% if user_signed_in? %>
+
+              <% if current_user.trainee? && !current_user.enrolled_courses.include?(course) %>
+                <%= button_to 'Enroll Now', enroll_course_path(course), method: :post, class: 'btn btn-enroll' %>
+              
+              <% elsif current_user.enrolled_courses.include?(course) %>
+                <%= button_to "Unenroll", unenroll_course_path(course), method: :delete, data: { turbo_confirm: "Are you sure ?" }, class: "btn btn-enroll" %>
+              <% end %>
+            
+            <% else %>
+              <%= link_to 'Enroll Now', new_user_session_path, class: 'btn btn-enroll' %>
+            <% end %>
           </div>
         </div>
       <% end %>

@@ -1,0 +1,15 @@
+<div class="batch-container">
+    <div class="batch-show-info">
+        <div>
+            <% @batches.each do |batch| %>
+                <h4><%= batch.name %></h4>
+                <h4><%= batch.description %></h4>
+                <h4><%= batch.start_date %></h4>
+                <h4><%= batch.end_date %></h4>
+            <% end %>
+        </div>
+        <div>
+            <button>Add Trainees to batches</button>
+        </div>  
+    </div>
+</div>

@@ -34,6 +34,32 @@
   </div>
 
   <div class="course-footer">
-    <a href="#" class="btn btn-primary">Enroll Now</a>
+    <% if current_user.trainee? %>
+      <% if current_user.enrolled_courses.include?(@course) %>
+        <%= button_to 'Unenroll', unenroll_course_path(@course), method: :delete, data: { turbo_confirm: 'Are you sure you want to unenroll?' }, class: "btn btn-danger" %>
+      <% else %>
+        <%= button_to 'Enroll', enroll_course_path(@course), method: :post, class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+
+    
+    <% if current_user.trainer? %>
+      <%= link_to "Update Course", edit_course_path(@course), class: 'btn btn-primary' %>
+    <% end %>
   </div>
 </section>
+
+<div class="comment-section-container">
+  <h2>Discussion (<%= @course.comments.length %>)</h2>
+
+  <%= form_with(model: [@course, @comment], local: true) do |f| %>
+    <div class="form-group">
+      <%= f.text_area :body, rows: 5, class: "form-control" %>
+    </div>
+    <%= f.submit "Post Comment", class: "btn btn-comment" %>
+  <% end %>
+
+  <div class="comments-section">
+    <%= render @course.comments.where(parent_id: nil) %>
+  </div>
+</div>

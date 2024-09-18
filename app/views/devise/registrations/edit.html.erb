@@ -15,6 +15,26 @@
       <%= f.label :email %>
       <%= f.email_field :email, autofocus: true %>
     </div>
+    
+    <div class="field">
+      <%= f.label :phone_number %>
+      <%= f.text_field :phone_number, placeholder: "Enter Phone Number" %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :address %>
+      <%= f.text_field :address, placeholder: "Enter Address" %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :pincode %>
+      <%= f.text_field :pincode, placeholder: "Enter Pincode" %>
+    </div>
+    
+    <div class="field">
+      <%= f.label :latest_degree %>
+      <%= f.text_field :latest_degree, placeholder: "Enter Latest Degree" %>
+    </div>
 
     <div class="field">
       <%= f.label :password %> (leave blank if you don't want to change it)

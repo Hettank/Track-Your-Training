@@ -7,23 +7,19 @@
 
            <% if user_signed_in? %>
                 <% if current_user.role == 'admin' %>
-                    <li>Manage Users</li>
-                    <li>Manage Courses</li>
-                    <li>Manage Batches</li>
-                    <li>System Settings</li>
-                
+                    <li><%= link_to 'Manage Trainers', manage_trainers_path %></li>
+                    <li><%= link_to 'Manage Trainees', manage_trainees_path %></li>
+                    <li><%= link_to "Profile", profile_path %></li>
                 <% elsif current_user.role == 'trainer' %>
                     <li><%= link_to 'My Courses', my_courses_path %></li>
                     <li><%= link_to "Create Course", new_course_path %></li>
-                    
+                    <li><%= link_to "Batches", batches_path %></li>
                     <% if @trainer_courses.any? %>
                         <li><%= link_to "Manage Trainees", manage_all_trainees_path(course) %></li>
                     <% end %>
-
-                    <li><%= link_to "Profile", edit_user_registration_path  %></li>
-
+                    <li><%= link_to "Profile", profile_path  %></li>
                 <% elsif current_user.role == 'trainee' %>
-                    <li><%= link_to "Profile", edit_user_registration_path %></li>
+                    <li><%= link_to "Profile", profile_path %></li>
                 <% end %>
             <% end %>
 

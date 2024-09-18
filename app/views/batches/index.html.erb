@@ -1,0 +1,30 @@
+<div class="batch-container">
+    <div class="batch-header">
+        <h1>All Batches</h1>
+        <%= link_to "Create A Batch", new_batch_path, class: "btn, btn-batch" %>
+    </div>
+
+    <div class="batch-content">
+        <% if @batches.length > 0 %>
+            <% @batches.each do |batch| %>
+                <div class="batch-body">
+                    <div class="batch-title">
+                        <h3>Instructor Name: <%= batch.user.first_name %></h3>
+                        <span>Best Seller</span>
+                    </div>
+                    <div class="batch-inner-body">
+                        <p class="">Batch Name: <%= batch.name %></p>
+                        <p class="">Description: <%= batch.description %></p>
+                        <p class="">Duration: <%= batch.duration %></p>
+                        <p class="">Course: <%= batch.course.name %></p>
+                        <span>Start date: <%= batch.start_date %></span>
+                        <span>End date: <%= batch.end_date %></span>
+                    </div>
+                    <%= link_to "View Batch", batch_path(batch), class: "btn-view-batch" %>
+                </div>
+            <% end %>
+        <% else %>
+            <p>No Any Batches Created yet.</p>
+        <% end %>
+    </div>
+</div>  

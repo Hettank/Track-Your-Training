@@ -3,13 +3,14 @@
 
 <% if @courses.any? %>
   <% @courses.each do |course| %>
-    <h2><%= course.name %></h2>
+    <h2 class="manage-course-title"><%= course.name %></h2>
     <% if course.trainees.any? %>
-      <table>
+      <table class="content-table">
         <thead>
           <tr>
             <th>Name</th>
             <th>Email</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -17,6 +18,9 @@
             <tr>
               <td><%= trainee.first_name %> <%= trainee.last_name %></td>
               <td><%= trainee.email %></td>
+              <td>
+                <%= button_to 'Remove Trainee', remove_trainee_course_path(course, trainee_id: trainee.id), method: :delete, data: { turbo_confirm: 'Are you sure you want to remove this trainee?' }, class: "btn" %>
+              </td>
             </tr>
           <% end %>
         </tbody>

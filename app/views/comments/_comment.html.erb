@@ -1,0 +1,41 @@
+<div class="comment">
+  <p class="user-name">
+    <%= comment.user.first_name %> <%= comment.user.last_name %>
+    <% if comment.user.admin? %>
+      (admin)
+    <% end %>
+  </p>
+  <p class="comment-body"><%= comment.body %></p>
+
+  <div class="comment-operations">
+    <% if comment.user == current_user %>
+      <%= link_to 'Edit', edit_course_comment_path(comment.course, comment), class: 'edit-comment' %>
+      <%= button_to 'Delete', course_comment_path(comment.course, comment), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: 'delete-comment' %>
+    <% end %>
+
+    <button class="btn-reply" id="reply-btn-<%= comment.id %>">Reply</button>
+
+    <div class="reply-form" id="reply-form-<%= comment.id %>" style="display: none;">
+      <%= form_with(model: [comment.course, Comment.new], local: true) do |form| %>
+        <%= form.hidden_field :parent_id, value: comment.id %>
+        <%= form.text_area :body, placeholder: "Reply to this comment..." %>
+        <%= form.submit "Reply", class: 'reply-btn' %>
+      <% end %>
+    </div>
+  </div>  
+
+  <div class="replies">
+    <% comment.replies.each do |reply| %>
+      <%= render reply %>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.btn-reply').forEach((element) => {
+    element.addEventListener('click', (ev) => {
+      const commentId = ev.target.id.split('-')[2];
+      document.getElementById(`reply-form-${commentId}`).style.display = "block";
+    });
+  });
+</script>

@@ -94,18 +94,40 @@ textarea {
   border: 1px solid var(--primary);
   position: fixed;
   width: 80%;
+  z-index: 999 !important;
 }
 
 .nav-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 
 .nav-container ul {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
+}
+
+.nav-container li {
+  position: relative;
+}
+
+.nav-container ul li::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  background-color: var(--primary);
+  width: 0;
+  height: 1px;
+  transition: all 0.3s;
+}
+
+.nav-container ul li:hover::after {
+  width: 100%;
+  left: 0;
 }
 
 .nav-container .nav-sign-btn {
@@ -448,6 +470,28 @@ textarea {
   position: relative;
 }
 
+.course-card-header .trash-delete {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary);
+  width: 32px;
+  height: 32px;
+  border-radius: 3px;
+  outline: none;
+  border: 1px solid var(--primary);
+  cursor: pointer;
+}
+
+.course-card-header .trash-delete i {
+  color: #001514;
+  font-weight: bold;
+  font-size: 20px;
+}
+
 .course-name {
   font-size: 1.5rem;
   font-weight: bold;
@@ -494,10 +538,22 @@ textarea {
 .create-course-container {
   width: 100%;
   height: calc(100% - 100px);
-  max-width: 500px;
-  margin: 0 auto;
   margin-top: 110px;
   padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.course-form {
+  padding: 2rem;
+  border-radius: 5px;
+  overflow-y: auto;
+  max-height: 550px;
+  border: 1px solid var(--primary);
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: var(--primary) transparent; /* Primary color for scrollbar in Firefox */
+  min-width: 600px;
 }
 
 .course-form form {
@@ -505,6 +561,7 @@ textarea {
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   width: 100%;
+  /* background-color: red; */
 }
 
 .course-form form .form-group {
@@ -641,18 +698,233 @@ textarea {
   margin-top: 100px;
 }
 
+.trainees-container .manage-course-title {
+  margin-top: 20px;
+}
+
+.trainees-container .content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 1em;
+  border-radius: 10px 10px 0 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.content-table thead tr {
+  background-color: var(--primary);
+  color: var(--white);
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+/* .content-table tbody tr:nth-of-type(even) {
+  background-color: var(--secondary);
+} */
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid var(--primary);
+}
+
+.content-table .btn-remove {
+  background-color: var(--white);
+  color: black;
+  margin: 10px;
+}
+
+/* 
+===========================================================================================================
+                  Batches Styling
+===========================================================================================================
+*/
+
+.batch-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 1rem;
+  margin-top: 100px;
+}
+
+.batch-container textarea {
+  resize: none;
+}
+
+.batch-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.batch-header .btn-batch {
+  background-color: var(--primary);
+  padding: 8px 15px;
+  color: var(--background);
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.batch-form {
+  padding: 1rem;
+}
+
+.batch-form form {
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.batch-form .btn {
+  width: 50%;
+}
+
+.batch-container .batch-content {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.batch-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.batch-title span {
+  padding: 8px;
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.batch-body {
+  padding: 1rem;
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.batch-body .batch-inner-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.batch-body .btn-view-batch {
+  background-color: var(--primary);
+  border-radius: 5px;
+  padding: 7px 12px;
+  color: var(--background);
+  width: fit-content;
+  justify-self: end;
+  align-self: end;
+  font-weight: 600;
+}
+
+.batch-show-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
 /* 
 ===========================================================================================================
                   Profile Styling
 ===========================================================================================================
 */
 
+.profile-box-container {
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 100px;
+  border: 1px solid var(--primary);
+  border-radius: 7px;
+  height: 100%;
+  min-height: 500px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-box-container .profile-header {
+  background-color: var(--primary);
+  width: 100%;
+  height: 100%;
+  border-radius: 0 0 7px 7px;
+  padding: 1rem;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.profile-box-container .profile-body {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  height: auto;
+  flex: 2;
+}
+
+.profile-body .profile {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* height: 100%; */
+}
+
+.profile-footer {
+  /* position: absolute;
+  left: 0;
+  bottom: 0; */
+  width: 100%;
+  padding: 1rem;
+  border-top: 1px solid var(--primary);
+  border-radius: 7px 7px 0 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  height: max-content;
+}
+
+.profile-footer .btn-edit {
+  background-color: var(--primary);
+  text-align: center;
+  color: var(--background);
+}
+
+.profile-footer .btn-delete-profile {
+  color: var(--background);
+  background-color: var(--white);
+  text-align: center;
+}
+
+.profile-header i {
+  font-size: 32px;
+  color: var(--background);
+}
+
+.profile-box-container .profile-header-title {
+  color: var(--background);
+}
+
 .profile-container {
   width: 80%;
   margin: 0 auto;
   padding: 1rem;
-  /* background-color: #0056b3; */
-  margin-top: 100px;
 }
 
 .profile-container form {
@@ -677,6 +949,146 @@ textarea {
   color: var(--white);
   text-align: center;
   flex: 1;
+}
+
+/* 
+===========================================================================================================
+                  Comment Section Styling
+===========================================================================================================
+*/
+
+.comment-section-container {
+  width: 80%;
+  margin: 0 auto;
+  border-top: 1px solid #ddd;
+  margin-top: 40px;
+  padding: 1rem;
+}
+
+.comment-section-container .form-group {
+  width: 50%;
+}
+
+.comment-section-container .form-group textarea {
+  resize: none;
+}
+
+form .btn-comment {
+  background-color: var(--primary);
+  width: max-content;
+  border-radius: 3px;
+  margin-top: 10px;
+  color: var(--background);
+}
+
+.comments-section {
+  margin-bottom: 30px;
+}
+
+/* Individual Comment Styles */
+.comment {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.comment-operations {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.comment .comment-operations a,
+.comment .comment-operations button {
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 5px 10px;
+}
+
+.comment-operations .edit-comment {
+  background-color: var(--primary);
+  color: var(--background);
+  border-radius: 3px;
+}
+
+.comment-operations .delete-comment {
+  background-color: var(--error);
+  color: var(--white);
+  border-radius: 3px;
+  border: 1px solid var(--error);
+  cursor: pointer;
+}
+
+.comment-operations .btn-reply {
+  background-color: var(--success);
+  color: var(--white);
+  border-radius: 3px;
+  border: 1px solid var(--success);
+  cursor: pointer;
+}
+
+.comment .user-name {
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--white);
+}
+
+/* Reply Form Styles */
+.reply-form {
+  display: none;
+  width: 50%;
+}
+
+.reply-form form .reply-btn {
+  background-color: #218838;
+  color: var(--white);
+  font-weight: 600;
+  border: 1px solid #218838;
+  font-size: 0.9em;
+  cursor: pointer;
+  flex: 1;
+}
+
+.reply-form form {
+  display: flex;
+  gap: 10px;
+}
+
+.reply-form textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 13px;
+  resize: none;
+  flex: 3;
+}
+
+/* Replies */
+.replies {
+  margin-left: 30px;
+  padding-left: 10px;
+  border-left: 1px solid #ddd;
+  margin-top: 10px;
+}
+
+/* Comment Footer Actions */
+
+.comment .comment-footer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.comment-footer .reply-link {
+  font-size: 12px;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.comment-footer .reply-link:hover {
+  text-decoration: underline;
 }
 
 /* 
@@ -741,8 +1153,10 @@ textarea {
   gap: 10px;
 }
 
-.course-card-footer button {
+.course-card-footer .btn-enroll,
+.course-card-footer .btn-details {
   flex: 1;
+  text-align: center;
 }
 
 .btn {
@@ -818,5 +1232,10 @@ textarea {
 
   .course-form form {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  /* for batches */
+  .batch-container .batch-content {
+    grid-template-columns: 1fr;
   }
 }

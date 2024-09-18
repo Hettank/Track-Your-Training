@@ -1,16 +1,24 @@
 class Course < ApplicationRecord
-  # Associations users <==> courses
+  # Associations: users <==> courses
   belongs_to :trainer, class_name: "User", foreign_key: :user_id
   
   belongs_to :user
 
-  has_many :enrollments
+  # Automatically delete enrollments when a course is deleted
+  has_many :enrollments, dependent: :destroy
   has_many :trainees, through: :enrollments, source: :user
 
   has_one_attached :image
 
+  # comment section associations
+  has_many :comments, dependent: :destroy
+
   validates :name, :duration, :description, :category, :level, :start_date, :end_date, presence: true
   validate :image_type_validation
+
+
+  # Associations for batches
+  has_many :batches
 
   private
 

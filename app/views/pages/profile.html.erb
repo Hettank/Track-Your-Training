@@ -1,0 +1,52 @@
+<div class="profile-box-container">
+    <div class="profile-header">
+        <i class="ph ph-user-circle"></i>
+        <h2 class="profile-header-title">
+            <%= current_user.first_name %> <%= current_user.last_name %> (<%= current_user.role %>)
+        </h2>
+    </div>
+
+    <div class="profile-body">
+        <div class="profile">
+            <label>First Name</label>
+            <h4><%= current_user.first_name %></h4>
+        </div>
+        <div class="profile">
+            <label>Last Name</label>
+            <h4><%= current_user.last_name %></h4>
+        </div>
+        <div class="profile">
+            <label>Your Email</label>
+            <h4><%= current_user.email %></h4>
+        </div>
+        <div class="profile">
+            <label>Joinint Date</label>
+            <h4><%= current_user.joining_date %></h4>
+        </div>
+        <div class="profile">
+            <label>Phone Number</label>
+            <h4><%= current_user.phone_number %></h4>
+        </div>
+        <div class="profile">
+            <label>Address</label>
+            <h4><%= current_user.address %></h4>
+        </div>
+        <div class="profile">
+            <label>Pincode</label>
+            <h4><%= current_user.pincode %></h4>
+        </div>
+        <div class="profile">
+            <label>Latest Degree</label>
+            <h4><%= current_user.latest_degree %></h4>
+        </div>
+    </div>
+
+    <div class="profile-footer">
+        <%= link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-edit' %>
+        
+        <%= button_to 'Delete Profile', registration_path(current_user), 
+            method: :delete, 
+            class: 'btn btn-delete-profile', 
+            data: { turbo_confirm: "Are you sure you want to delete your account?" } %>
+    </div>
+</div>

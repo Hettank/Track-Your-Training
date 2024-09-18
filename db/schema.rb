@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_09_101011) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_17_102342) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,42 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_09_101011) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "batch_users", force: :cascade do |t|
+    t.integer "batch_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["batch_id"], name: "index_batch_users_on_batch_id"
+    t.index ["user_id"], name: "index_batch_users_on_user_id"
+  end
+
+  create_table "batches", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "duration"
+    t.integer "user_id", null: false
+    t.integer "course_id", null: false
+    t.integer "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_batches_on_comment_id"
+    t.index ["course_id"], name: "index_batches_on_course_id"
+    t.index ["user_id"], name: "index_batches_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "course_id", null: false
+    t.text "body"
+    t.integer "parent_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_comments_on_course_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -86,6 +122,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_09_101011) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "batch_users", "batches"
+  add_foreign_key "batch_users", "users"
+  add_foreign_key "batches", "comments"
+  add_foreign_key "batches", "courses"
+  add_foreign_key "batches", "users"
+  add_foreign_key "comments", "courses"
+  add_foreign_key "comments", "users"
   add_foreign_key "enrollments", "courses"
   add_foreign_key "enrollments", "users"
 end
