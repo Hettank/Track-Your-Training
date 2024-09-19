@@ -11,7 +11,10 @@ class BatchesController < ApplicationController
   end
 
   def show
+    @batch = Batch.find(params[:id])
+    @trainees = @batch.course.trainees
   end
+  
 
   def create
     @batch = Batch.new(batch_params)
@@ -21,7 +24,7 @@ class BatchesController < ApplicationController
     @batch.comment_id = params[:batch][:comment_id] if params[:batch][:comment_id].present?
     
     if @batch.save
-      current_user.batches << @batch  # Add the batch to current_user.batches
+      current_user.batches << @batch
       redirect_to batches_path, notice: 'Batch was successfully created.'
     else
       render :new, status: :unprocessable_entity
@@ -37,6 +40,20 @@ class BatchesController < ApplicationController
 
   def destroy
   end
+
+  def add_trainee
+    @batch = Batch.find(params[:id])
+    trainee_ids = params[:batch] ? params[:batch][:trainee_ids] : []
+  
+    if trainee_ids.present?
+      trainees = User.where(id: trainee_ids)
+      @batch.users << trainees
+      redirect_to @batch, notice: 'Trainees were successfully added.'
+    else
+      redirect_to @batch, alert: 'No trainees selected.'
+    end
+  end
+  
 
   # private
 

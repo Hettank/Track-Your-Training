@@ -27,7 +27,15 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  resources :batches
+  # resources for tasks
+  # resources :tasks
+
+  # resources :batches
+  resources :batches do
+    post 'add_trainee', on: :member
+    resources :tasks, only: [:new, :create, :index, :show]
+  end
+  
   
   get 'my_courses', to: 'courses#my_courses', as: 'my_courses'
   get 'manage_all_trainees', to: 'courses#manage_all_trainees', as: 'manage_all_trainees'

@@ -1,0 +1,25 @@
+<div class="task-container">
+    <%= form_with(model: @task, url: batch_tasks_path(@batch), local: true, data: { turbo: false }) do |form| %>
+        <div>
+            <%= form.label :name, "Task Name" %>
+            <%= form.text_field :name %>
+            <%= form.object.errors[:name].join(", ") if form.object.errors[:name].any? %>
+        </div>
+
+        <div>
+            <%= form.label :description, "Task Description" %>
+            <%= form.text_area :description %>
+            <%= form.object.errors[:description].join(", ") if form.object.errors[:description].any? %>
+        </div>
+
+        <div>
+            <%= form.label :deadline, "Deadline" %>
+            <%= form.datetime_select :deadline %>
+            <%= form.object.errors[:deadline].join(", ") if form.object.errors[:deadline].any? %>
+        </div>
+
+        <div>
+            <%= form.submit "Assign Task" %>
+        </div>
+    <% end %>
+</div>

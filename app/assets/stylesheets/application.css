@@ -839,6 +839,47 @@ textarea {
   grid-template-columns: repeat(2, 1fr);
 }
 
+.batches-data {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.batches-data form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.batches-data form .batches-btn {
+  width: fit-content;
+  background-color: var(--success);
+  margin-top: 5px;
+  color: var(--background);
+}
+
+.batch-show-info .all-trainees {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.batch-show-info .all-trainees p {
+  border-bottom: 2px solid var(--primary);
+}
+
+/* ===========================================================================================================
+                            Task Styling
+  ============================================================================================================
+ */
+
+.task-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 1rem;
+  margin-top: 100px;
+}
+
 /* 
 ===========================================================================================================
                   Profile Styling

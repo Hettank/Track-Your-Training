@@ -16,7 +16,18 @@ class User < ApplicationRecord
   has_many :batch_users
   has_many :batches, through: :batch_users
   # has_and_belongs_to_many :batches
-  
+
+
+  # Task Associations
+  # belongs_to :tasks
+  has_many :created_tasks, class_name: "Task", foreign_key: 'trainer_id'
+  has_many :tasks
+
+  scope :show_trainees, -> { where(role: 'trainee')}
+
+  def full_name
+    "#{self.first_name} #{self.last_name}"
+  end
 
   # Role methods
   def trainer?

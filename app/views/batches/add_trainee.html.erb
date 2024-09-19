@@ -1,0 +1,5 @@
+<%= form_with url: add_trainee_batch_path(@batches), method: :post do |form| %>
+    <%= form.label :trainee_ids, "Select Trainees to Add to Batch" %>
+    <%= form.collection_select :trainee_ids, @trainees, :id, :full_name, {}, multiple: true %> 
+    <%= form.submit "Add Trainees" %>
+<% end %>

@@ -1,15 +1,29 @@
 <div class="batch-container">
-    <div class="batch-show-info">
-        <div>
-            <% @batches.each do |batch| %>
-                <h4><%= batch.name %></h4>
-                <h4><%= batch.description %></h4>
-                <h4><%= batch.start_date %></h4>
-                <h4><%= batch.end_date %></h4>
-            <% end %>
-        </div>
-        <div>
-            <button>Add Trainees to batches</button>
-        </div>  
+  <div class="batch-show-info">
+    <div>
+      <h2>Batch Information</h2>
+      <p><strong>Name:</strong> <%= @batch.name %></p>
+      <p><strong>Course:</strong> <%= @batch.course.name %></p>
+      <p><strong>Description:</strong> <%= @batch.description %></p>
+      <p><strong>Start Date:</strong> <%= @batch.start_date %></p>
+      <p><strong>End Date:</strong> <%= @batch.end_date %></p>
     </div>
+
+    <div class="batches-data">
+      <h2>Add Trainees</h2>
+      <%= form_with(model: @batch, url: add_trainee_batch_path(@batch), method: :post, local: true) do |form| %>
+        <%= form.label :trainee_ids, "Select Trainees to Add to Batch" %>
+        <%= form.collection_select :trainee_ids, @trainees, :id, :first_name, {}, class: "role-dropdown" %>
+        <%= form.submit "Add Trainees", class: "btn batches-btn" %>
+      <% end %>
+    </div>  
+
+    <div class="all-trainees">
+        <h2>All Trainees</h2>
+        <% @batch.users.show_trainees.each do |trainee| %>
+            <p><%= trainee.full_name %></p>
+            <%= link_to 'Assign Task', new_batch_task_path(@batch), class: 'btn btn-enroll' %>
+        <% end %>
+    </div>
+  </div>
 </div>
