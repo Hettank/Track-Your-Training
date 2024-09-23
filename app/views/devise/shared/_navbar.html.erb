@@ -1,38 +1,45 @@
 <div class="container">
     <nav class="nav">
-    <div class="nav-container">
-        <ul>
-            <li><%= link_to 'Home', root_path %></li>
-            <li><%= link_to 'Courses', courses_path %></li>
+        <div class="nav-container">
+            <ul>
+                <li><%= link_to 'Home', root_path %></li>
+                <li><%= link_to 'Courses', courses_path %></li>
 
-           <% if user_signed_in? %>
-                <% if current_user.role == 'admin' %>
-                    <li><%= link_to 'Manage Trainers', manage_trainers_path %></li>
-                    <li><%= link_to 'Manage Trainees', manage_trainees_path %></li>
-                    <li><%= link_to "Profile", profile_path %></li>
-                <% elsif current_user.role == 'trainer' %>
-                    <li><%= link_to 'My Courses', my_courses_path %></li>
-                    <li><%= link_to "Create Course", new_course_path %></li>
-                    <li><%= link_to "Batches", batches_path %></li>
-                    <% if @trainer_courses.any? %>
-                        <li><%= link_to "Manage Trainees", manage_all_trainees_path(course) %></li>
+                <% if user_signed_in? %>
+                    <% if current_user.role == 'admin' %>
+                        <li><%= link_to 'Manage Trainers', manage_trainers_path %></li>
+                        <li><%= link_to 'Manage Trainees', manage_trainees_path %></li>
+                        <li><%= link_to "Profile", profile_path %></li>
+                    <% elsif current_user.role == 'trainer' %>
+                        <li><%= link_to 'My Courses', my_courses_path %></li>
+                        <li><%= link_to "Create Course", new_course_path %></li>
+                        <li><%= link_to "Batches", batches_path %></li>
+                        <% if @trainer_courses.any? %>
+                            <li><%= link_to "Manage Trainees", manage_all_trainees_path(course) %></li>
+                        <% end %>
+                        <% if @batch.present? && @batch.tasks.any? %>
+                            <li><%= link_to "Track Tasks", batch_track_tasks_path(@batch) %></li>
+                        <% end %>
+                        <li><%= link_to "Profile", profile_path %></li>
+                    <% elsif current_user.role == 'trainee' %>
+                        <li><%= link_to "Profile", profile_path %></li>
+                        <% if current_user.tasks.length > 0 %>
+                            <li class="task-notification">
+                                <%= link_to "Tasks", tasks_assigned_path %>
+                            </li>
+                        <% end %>
                     <% end %>
-                    <li><%= link_to "Profile", profile_path  %></li>
-                <% elsif current_user.role == 'trainee' %>
-                    <li><%= link_to "Profile", profile_path %></li>
                 <% end %>
-            <% end %>
+            </ul>
 
-        </ul>
-
-        <div class="btns-container">
-            <% if user_signed_in? %>
-                <%= link_to 'Log out', destroy_user_session_path, data: { turbo_method: :delete }, class: "btn nav-log-btn" %>
-            <% else %>
-                <%= link_to 'Sign up', new_user_registration_path, class: "btn nav-sign-btn" %>
-                <%= link_to 'Log in', new_user_session_path, class: "btn nav-log-btn" %>
-            <% end %>
+            <div class="btns-container">
+                <% if user_signed_in? %>
+                    <%= link_to 'Log out', destroy_user_session_path, data: { turbo_method: :delete }, class: "btn nav-log-btn" %>
+                <% else %>
+                    <%= link_to 'Sign up', new_user_registration_path, class: "btn nav-sign-btn" %>
+                    <%= link_to 'Log in', new_user_session_path, class: "btn nav-log-btn" %>
+                <% end %>
+            </div>
         </div>
-    </div>
     </nav>
 </div>

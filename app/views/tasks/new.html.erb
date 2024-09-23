@@ -3,21 +3,26 @@
         <div>
             <%= form.label :name, "Task Name" %>
             <%= form.text_field :name %>
-            <%= form.object.errors[:name].join(", ") if form.object.errors[:name].any? %>
         </div>
 
         <div>
             <%= form.label :description, "Task Description" %>
             <%= form.text_area :description %>
-            <%= form.object.errors[:description].join(", ") if form.object.errors[:description].any? %>
         </div>
 
         <div>
             <%= form.label :deadline, "Deadline" %>
             <%= form.datetime_select :deadline %>
-            <%= form.object.errors[:deadline].join(", ") if form.object.errors[:deadline].any? %>
         </div>
 
+        <div>
+            <%= form.label :status, "Status" %>
+            <%= form.select :status, options_for_select([['Pending', 0], ['In Progress', 1], ['Completed', 2]]), {}, class: 'role-dropdown' %>
+        </div>
+        
+        <%= hidden_field_tag('task[user_id]', params[:trainee_id]) %>
+        <%= hidden_field_tag('task[trainer_id]', @batch.user.id) %>
+        
         <div>
             <%= form.submit "Assign Task" %>
         </div>

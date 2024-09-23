@@ -18,7 +18,7 @@ class Course < ApplicationRecord
 
 
   # Associations for batches
-  has_many :batches
+  has_many :batches, dependent: :destroy
 
   private
 

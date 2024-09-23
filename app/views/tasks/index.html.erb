@@ -1,0 +1,28 @@
+<div class="task-container">
+    <div class="tasks">
+        <% if @assigned_tasks.length > 0 %>
+            <% @assigned_tasks.each do |task| %>
+                <div class="task">
+                    <div class="task-header">
+                        <p><span class="highlight-text">Task:</span> <%= task.name %></p>
+                        <%= link_to 'Details', batch_task_path(task.batch, task.id) %>
+                    </div>
+                    <div class="task-body">
+                        <p>Task Description: <%= task.description %></p>
+                        <p class="task-deadline">Deadline: <%= task.deadline.strftime("%m/%d/%Y") %></p>
+                    </div>
+
+                    <div class="task-footer">
+                        <span class="task-status">
+                            <strong>Status:</strong> <%= task.status.to_i == 0 ? "Pending" : task.status.to_i == 1 ? "In Progress" : "Completed" %>
+                        </span>
+                        <span class="task-created">Assigned on: <%= task.created_at.strftime("%m/%d/%Y") %></span>
+                    </div>
+                </div>
+            <% end %>
+        <% else %>
+            <p>There is no tasks assigned to you...!</p>
+        <% end %>
+        
+    </div>
+</div>

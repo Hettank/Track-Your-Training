@@ -20,22 +20,26 @@ Rails.application.routes.draw do
       post 'enroll'
       delete 'unenroll'
       delete 'remove_trainee/:trainee_id', to: 'courses#remove_trainee', as: 'remove_trainee'
-      delete 'destroy', to: 'courses#destroy', as: 'destroy'
     end
-
+  
     # Nested routes for comments inside courses
     resources :comments
   end
+  
 
-  # resources for tasks
-  # resources :tasks
-
-  # resources :batches
+  # Batches and their tasks
   resources :batches do
     post 'add_trainee', on: :member
-    resources :tasks, only: [:new, :create, :index, :show]
+    resources :tasks do
+      member do
+        patch 'update_status', to: 'tasks#update_status'
+      end
+    end
+    get 'track_tasks', to: 'tasks#track_tasks', as: 'track_tasks'
   end
   
+
+  get 'tasks_assigned', to: 'tasks#index', as: 'tasks_assigned'
   
   get 'my_courses', to: 'courses#my_courses', as: 'my_courses'
   get 'manage_all_trainees', to: 'courses#manage_all_trainees', as: 'manage_all_trainees'

@@ -7,7 +7,7 @@
           <div class="course-card-header" style="background-image: url('<%= url_for(course.image) if course.image.attached? %>');">
             <h3 class="course-name"><%= course.name %></h3>
             <% if current_user.present? && current_user.trainer? && current_user == course.user %>
-              <%= button_to destroy_course_path(course), method: :delete, data: { turbo_confirm: "Are you sure you want to delete this course?" }, class: "trash-delete" do %>
+              <%= button_to course_path(course), method: :delete, data: { turbo_confirm: "Are you sure you want to delete this course?" }, class: "trash-delete" do %>
                 <i class="ph ph-trash"></i>
               <% end %>
             <% end %>

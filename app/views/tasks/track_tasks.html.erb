@@ -1,0 +1,28 @@
+<div class="task-container">
+  <h1>Track Tasks</h1>
+
+  <% if @trainee_tasks.any? %>
+    <table class="content-table">
+      <thead>
+        <tr>
+          <th>Trainee</th>
+          <th>Task Name</th>
+          <th>Status</th>
+          <th>Deadline</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @trainee_tasks.each do |task| %>
+          <tr>
+            <td><%= task.trainee.full_name if task.trainee %></td>
+            <td><%= task.name %></td>
+            <td><%= task.status.to_i == 2 ? "Completed" : (task.status.to_i == 1 ? "In Progress" : "Pending") %></td>
+            <td><%= task.deadline.strftime('%m/%d/%Y') if task.deadline %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No tasks assigned to your trainees at this time.</p>
+  <% end %>
+</div>

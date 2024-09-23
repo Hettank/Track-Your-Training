@@ -13,17 +13,22 @@
       <h2>Add Trainees</h2>
       <%= form_with(model: @batch, url: add_trainee_batch_path(@batch), method: :post, local: true) do |form| %>
         <%= form.label :trainee_ids, "Select Trainees to Add to Batch" %>
-        <%= form.collection_select :trainee_ids, @trainees, :id, :first_name, {}, class: "role-dropdown" %>
+        
+        <%= form.select :trainee_ids, options_for_select([["Select options", "", { disabled: true, selected: true }]] + @trainees.map { |t| [t.first_name, t.id] }), {}, class: "role-dropdown" %>
+        
         <%= form.submit "Add Trainees", class: "btn batches-btn" %>
       <% end %>
-    </div>  
+    </div>
+
 
     <div class="all-trainees">
-        <h2>All Trainees</h2>
-        <% @batch.users.show_trainees.each do |trainee| %>
-            <p><%= trainee.full_name %></p>
-            <%= link_to 'Assign Task', new_batch_task_path(@batch), class: 'btn btn-enroll' %>
-        <% end %>
+      <h3 class="trainee-title">All Trainees</h3>
+      <% @batch.users.show_trainees.each do |trainee| %>
+        <div class="trainee-info">
+          <p><%= trainee.full_name %></p>
+          <%= link_to 'Assign Task', new_batch_task_path(@batch, {trainee_id: trainee.id}), class: 'btn btn-enroll' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

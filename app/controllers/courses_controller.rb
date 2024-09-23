@@ -59,13 +59,14 @@ class CoursesController < ApplicationController
 
   def destroy
     @course = Course.find(params[:id])
-  
+    
     if @course.destroy
       redirect_to my_courses_path, notice: "Course was deleted successfully."
     else
       redirect_to my_courses_path, alert: "Failed to delete the course."
     end
   end
+  
 
   # Trainer can remove trainee
   def remove_trainee

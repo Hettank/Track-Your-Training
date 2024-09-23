@@ -39,7 +39,15 @@ class BatchesController < ApplicationController
   end
 
   def destroy
+    @batch = Batch.find(params[:id])
+  
+    if @batch.destroy
+      redirect_to batches_path, notice: 'Batch was successfully deleted.'
+    else
+      redirect_to batches_path, alert: 'Failed to delete the batch.'
+    end
   end
+  
 
   def add_trainee
     @batch = Batch.find(params[:id])
@@ -47,12 +55,23 @@ class BatchesController < ApplicationController
   
     if trainee_ids.present?
       trainees = User.where(id: trainee_ids)
-      @batch.users << trainees
+      
+      @existing_trainees = @batch.users.where(id: trainee_ids)
+  
+      if @existing_trainees.any?
+        redirect_to @batch, notice: 'trainee is already assigned.'
+        return
+      end
+      
+      new_trainees = trainees - @existing_trainees
+      @batch.users << new_trainees if new_trainees.any?
+  
       redirect_to @batch, notice: 'Trainees were successfully added.'
     else
       redirect_to @batch, alert: 'No trainees selected.'
     end
   end
+  
   
 
   # private

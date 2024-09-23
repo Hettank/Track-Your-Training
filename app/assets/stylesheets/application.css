@@ -702,7 +702,7 @@ textarea {
   margin-top: 20px;
 }
 
-.trainees-container .content-table {
+.content-table {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 1em;
@@ -861,11 +861,26 @@ textarea {
 .batch-show-info .all-trainees {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
+  position: relative;
+  padding-left: 20px;
 }
 
-.batch-show-info .all-trainees p {
-  border-bottom: 2px solid var(--primary);
+.all-trainees .trainee-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.batch-show-info .all-trainees::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 3px;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background-color: var(--primary);
 }
 
 /* ===========================================================================================================
@@ -876,8 +891,183 @@ textarea {
 .task-container {
   width: 80%;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem;
   margin-top: 100px;
+}
+
+.task-container .tasks {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 1rem;
+}
+
+.task-container .tasks .task {
+  background-color: transparent;
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid var(--primary);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-container .tasks .task:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-header a {
+  background-color: var(--primary);
+  padding: 5px 10px;
+  color: var(--background);
+  border-radius: 3px;
+}
+
+.task-header p {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  /* color: var(--background); */
+}
+
+.task-header .task-deadline {
+  font-size: 0.9rem;
+  color: var(--error);
+}
+
+.task-body p {
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+
+.task-footer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.task-footer .task-status strong {
+  color: var(--primary);
+}
+
+.task-footer span {
+  font-size: 1rem;
+}
+
+/* Styling for the task details */
+
+.task-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  background-color: transparent;
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+.task-details h2 {
+  font-size: 2rem;
+  /* color: #333; */
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.task-details p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.task-details p strong {
+  color: var(--primary);
+}
+
+.task-details .task-header {
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Task deadline and creation date */
+.task-deadline,
+.task-created {
+  display: block;
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #777;
+}
+
+/* Task status */
+.task-status {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #f5a623;
+}
+
+/* Form for status change */
+.task-status-form {
+  margin-top: 2rem;
+  background-color: transparent;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.task-status-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.task-status-form label {
+  font-weight: bold;
+  font-size: 1.1rem;
+  /* color: #333; */
+}
+
+.task-status-form .form-control {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.task-status-form .form-control:focus {
+  border-color: #009879;
+  box-shadow: 0 0 8px rgba(0, 152, 121, 0.2);
+}
+
+.task-status-form .btn {
+  padding: 0.8rem 1.2rem;
+  background-color: var(--primary);
+  color: var(--background);
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.task-status-form .btn:hover {
+  background-color: #007bff;
+}
+
+.task-status-form .btn:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
 }
 
 /* 
@@ -1278,5 +1468,34 @@ form .btn-comment {
   /* for batches */
   .batch-container .batch-content {
     grid-template-columns: 1fr;
+  }
+
+  /* for tasks */
+  .task-container .tasks {
+    grid-template-columns: 1fr;
+  }
+  .task-container {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .task-details h2 {
+    font-size: 1.5rem;
+  }
+
+  .task-details p {
+    font-size: 1rem;
+  }
+
+  .task-status-form {
+    padding: 1rem;
+  }
+
+  .task-status-form .form-control {
+    padding: 0.7rem;
+  }
+
+  .task-status-form .btn {
+    padding: 0.7rem 1rem;
   }
 }
