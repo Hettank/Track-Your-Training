@@ -10,7 +10,7 @@
             <%= form.text_area :description %>
         </div>
 
-        <div>
+        <div class="form-group">
             <%= form.label :deadline, "Deadline" %>
             <%= form.datetime_select :deadline %>
         </div>
@@ -19,12 +19,17 @@
             <%= form.label :status, "Status" %>
             <%= form.select :status, options_for_select([['Pending', 0], ['In Progress', 1], ['Completed', 2]]), {}, class: 'role-dropdown' %>
         </div>
+
+        <div>
+            <%= form.label :resource, "Attach a Resource (PDF/Image)" %>
+            <%= form.file_field :resource, class: "form-control" %>
+        </div>
         
         <%= hidden_field_tag('task[user_id]', params[:trainee_id]) %>
         <%= hidden_field_tag('task[trainer_id]', @batch.user.id) %>
         
         <div>
-            <%= form.submit "Assign Task" %>
+            <%= form.submit "Assign Task", class: 'btn btn-enroll' %>
         </div>
     <% end %>
 </div>

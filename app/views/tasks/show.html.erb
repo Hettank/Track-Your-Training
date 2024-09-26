@@ -6,6 +6,13 @@
         <p><strong>Status:</strong> <%= @task.status.to_i == 0 ? "Pending" : @task.status.to_i == 1 ? "In Progress" : "Completed" %></p>
         <p><strong>Created on:</strong> <%= @task.created_at.strftime("%m/%d/%Y") %></p>
 
+        <% if @task.resource.attached? %>
+            <p>
+                <strong>Resource:</strong>
+                <%= link_to 'Download Resource', rails_blob_path(@task.resource, disposition: "attachment") %>
+            </p>
+        <% end %>
+
         <div class="task-status-form">
             <%= form_with(model: @task, url: update_status_batch_task_path(@task.batch, @task), method: :patch, local: true) do |f| %>
                 <div class="form-group">

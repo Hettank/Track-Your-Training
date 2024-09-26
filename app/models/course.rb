@@ -8,7 +8,7 @@ class Course < ApplicationRecord
   has_many :enrollments, dependent: :destroy
   has_many :trainees, through: :enrollments, source: :user
 
-  has_one_attached :image
+  has_one_attached :image, dependent: :destroy
 
   # comment section associations
   has_many :comments, dependent: :destroy

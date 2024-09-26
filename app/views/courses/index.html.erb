@@ -37,14 +37,12 @@
             <%= link_to "Details", course_path(course), class: 'btn btn-details' %>
 
             <% if user_signed_in? %>
-
               <% if current_user.trainee? && !current_user.enrolled_courses.include?(course) %>
                 <%= button_to 'Enroll Now', enroll_course_path(course), method: :post, class: 'btn btn-enroll' %>
               
               <% elsif current_user.enrolled_courses.include?(course) %>
                 <%= button_to "Unenroll", unenroll_course_path(course), method: :delete, data: { turbo_confirm: "Are you sure ?" }, class: "btn btn-enroll" %>
               <% end %>
-            
             <% else %>
               <%= link_to 'Enroll Now', new_user_session_path, class: 'btn btn-enroll' %>
             <% end %>

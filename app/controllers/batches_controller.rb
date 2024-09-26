@@ -12,7 +12,7 @@ class BatchesController < ApplicationController
 
   def show
     @batch = Batch.find(params[:id])
-    @trainees = @batch.course.trainees
+    @trainees = @batch.users.show_trainees
   end
   
 
@@ -41,6 +41,8 @@ class BatchesController < ApplicationController
   def destroy
     @batch = Batch.find(params[:id])
   
+    binding.pry
+    
     if @batch.destroy
       redirect_to batches_path, notice: 'Batch was successfully deleted.'
     else
@@ -71,8 +73,6 @@ class BatchesController < ApplicationController
       redirect_to @batch, alert: 'No trainees selected.'
     end
   end
-  
-  
 
   # private
 

@@ -9,19 +9,16 @@ class User < ApplicationRecord
   has_many :enrollments, dependent: :destroy
   has_many :enrolled_courses, through: :enrollments, source: :course
 
-  # Associations for comment section
-  has_many :comments, dependent: :destroy
-
   # Associations for batch through BatchUser join model
-  has_many :batch_users
-  has_many :batches, through: :batch_users
-  # has_and_belongs_to_many :batches
-
+  has_many :batch_users, dependent: :destroy
+  has_many :batches, through: :batch_users, dependent: :destroy
 
   # Task Associations
-  # belongs_to :tasks
-  has_many :created_tasks, class_name: "Task", foreign_key: 'trainer_id'
-  has_many :tasks
+  has_many :created_tasks, class_name: "Task", foreign_key: 'trainer_id', dependent: :destroy
+  has_many :tasks, foreign_key: 'user_id', dependent: :destroy
+
+  # For comments
+  has_many :comments, dependent: :destroy
 
   scope :show_trainees, -> { where(role: 'trainee')}
 

@@ -16,6 +16,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @resource = @task.resource if @task.resource.attached?
   end
 
   def create
@@ -66,6 +67,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:name, :description, :deadline, :status, :user_id, :trainer_id)
+    params.require(:task).permit(:name, :description, :deadline, :status, :resource, :user_id, :trainer_id)
   end
 end

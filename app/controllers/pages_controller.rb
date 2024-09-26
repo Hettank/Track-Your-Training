@@ -42,6 +42,10 @@ class PagesController < ApplicationController
     if current_user.admin?
       @trainer = User.find_by(id: params[:trainer_id])
 
+      
+      # binding.pry
+      
+
       if @trainer.present?
         if @trainer.destroy
           redirect_to manage_trainers_path, notice: 'Trainer has been successfully deleted.'

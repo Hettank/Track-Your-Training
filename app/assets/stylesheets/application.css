@@ -547,13 +547,10 @@ textarea {
 
 .course-form {
   padding: 2rem;
-  border-radius: 5px;
+  /* border-radius: 5px;
   overflow-y: auto;
   max-height: 550px;
-  border: 1px solid var(--primary);
-  scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: var(--primary) transparent; /* Primary color for scrollbar in Firefox */
-  min-width: 600px;
+  min-width: 600px; */
 }
 
 .course-form form {
@@ -764,6 +761,13 @@ textarea {
   justify-content: space-between;
 }
 
+.batch-footer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .batch-header .btn-batch {
   background-color: var(--primary);
   padding: 8px 15px;
@@ -893,6 +897,12 @@ textarea {
   margin: 0 auto;
   padding: 2rem;
   margin-top: 100px;
+}
+
+.task-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .task-container .tasks {

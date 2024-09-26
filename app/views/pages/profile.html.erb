@@ -44,9 +44,7 @@
     <div class="profile-footer">
         <%= link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-edit' %>
         
-        <%= button_to 'Delete Profile', registration_path(current_user), 
-            method: :delete, 
-            class: 'btn btn-delete-profile', 
-            data: { turbo_confirm: "Are you sure you want to delete your account?" } %>
+
+        <%= link_to 'Delete Profile', destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-delete-profile" %>
     </div>
 </div>

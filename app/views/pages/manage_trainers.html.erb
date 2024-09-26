@@ -24,7 +24,7 @@
                             <% end %>
                         </td>
                         <td>
-                            <%= link_to 'Remove Trainer', destroy_trainer_path(trainer.id), data: { turbo_method: "Are you sure you want to remove this trainer", turbo_method: :delete }, class: "btn btn-remove" %>
+                            <%= link_to 'Remove Trainer', destroy_trainer_path(trainer.id), data: { turbo_confirm: "Are you sure you want to remove this trainer", turbo_method: :delete }, class: "btn btn-remove" %>
                         </td>
                     </tr>
                 <% end %>
