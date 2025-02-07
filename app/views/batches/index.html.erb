@@ -20,7 +20,10 @@
                         <span>Start date: <%= batch.start_date %></span>
                         <span>End date: <%= batch.end_date %></span>
                     </div>
-                        <%= link_to "View Batch", batch_path(batch), class: "btn-view-batch" %>
+                    <div class="batch-info-links">
+                        <%= link_to "View Batch", batch_path(batch), class: "btn-view-batch" %> 
+                        <%= link_to "Delete Batch", batch_path(batch), data: { turbo_confirm: "Are you sure you want to delete this batch", turbo_method: :delete }, class: "btn-view-batch" %>
+                    </div>
                     </div>
             <% end %>
         <% else %>

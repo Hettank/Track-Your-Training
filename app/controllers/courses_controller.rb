@@ -45,17 +45,26 @@ class CoursesController < ApplicationController
 
   # Cancel the enrollment
   def unenroll
-    @course = Course.find_by(params[:id])
-
+    @course = Course.find(params[:id])
+  
     enrollment = current_user.enrollments.find_by(course: @course)
-
+  
     if enrollment
+      # Remove the user from all batches associated with this course
+      batches = @course.batches.joins(:users).where(users: { id: current_user.id })
+      
+      batches.each do |batch|
+        batch.users.delete(current_user)
+      end
+  
+      # Now, destroy the enrollment
       enrollment.destroy
-      redirect_to course_path(@course), notice: "Successfully unenrolled from the course."
+      redirect_to course_path(@course), notice: "Successfully unenrolled from the course and removed from associated batches."
     else
       redirect_to course_path(@course), alert: "You are not enrolled in this course."
     end
   end
+  
 
   def destroy
     @course = Course.find(params[:id])

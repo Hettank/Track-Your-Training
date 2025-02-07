@@ -8,8 +8,11 @@ class TasksController < ApplicationController
   end
 
   def index
-    if current_user.trainee?
+    if current_user.role == "trainee"
       @assigned_tasks = current_user.tasks.filter_tasks(2)
+      
+      # binding.pry
+      
     else
       redirect_to root_path, alert: 'failed'
     end

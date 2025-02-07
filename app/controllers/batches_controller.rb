@@ -12,9 +12,12 @@ class BatchesController < ApplicationController
 
   def show
     @batch = Batch.find(params[:id])
-    @trainees = @batch.users.show_trainees
+
+    # @trainees = @batch.course.trainees
+
+    @batch_user_ids = @batch.users.pluck(:id)
+    @trainees = @batch.course.trainees.reject {|trainee|  @batch_user_ids.include?(trainee.id) }
   end
-  
 
   def create
     @batch = Batch.new(batch_params)
@@ -40,8 +43,6 @@ class BatchesController < ApplicationController
 
   def destroy
     @batch = Batch.find(params[:id])
-  
-    binding.pry
     
     if @batch.destroy
       redirect_to batches_path, notice: 'Batch was successfully deleted.'

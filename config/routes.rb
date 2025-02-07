@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   # Batches and their tasks
   resources :batches do
     post 'add_trainee', on: :member
+    
     resources :tasks do
       member do
         patch 'update_status', to: 'tasks#update_status'
